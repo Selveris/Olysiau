@@ -11,23 +11,19 @@ public class SeedManager : MonoBehaviour {
     public float drieResist;
     public float haverestTime;
     public GameObject weatherZone;
-    //public Transform spawn;
-
-    /*
-    public GameObject seed;
-    public GameObject plant;
-    public GameObject maturePlant;*/
 
     private float actualWater;
-    public float recievedLight;
+    private float recievedLight;
     private bool flooded;
     private bool dried;
     private bool ready;
-    private float readySince;
-    private enum GrowthState { SEED, PLANT, MATURE};
-    private GrowthState actualGrowth;
-    private SpriteRenderer renderer;
+    private bool healthy;
+    private float growth;
 
+    private float minLocalY;
+    private float travelDistanceY;
+
+    private SpriteRenderer renderer;
     private WeatherManager weatherManager;
 
     // Use this for initialization
@@ -39,11 +35,18 @@ public class SeedManager : MonoBehaviour {
             Debug.LogError("Script 'WeatherManager' not found in WeatherZone");
 
         restart();
+
+        float spriteExtentY = renderer.sprite.bounds.extents.y;
+        minLocalY = -4f / 5f * spriteExtentY;
+        travelDistanceY = spriteExtentY - minLocalY;
+
+        updateGrowth();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         float t = Time.deltaTime;
 
         handleWeather(t);
@@ -65,6 +68,17 @@ public class SeedManager : MonoBehaviour {
     public bool isReady()
     {
         return ready;
+    }
+
+    public bool haverest()
+    {
+        if (ready)
+        {
+            restart();
+            return true;
+        }
+
+        return false;
     }
 
     private void handleWeather(float time)
@@ -116,31 +130,27 @@ public class SeedManager : MonoBehaviour {
         //in order
         else
         {
+            if(flooded || dried)
+            {
+                renderer.color = new Color(1f, 1f, 1f, 1f);
+            }
             flooded = false;
             dried = false;
+            
         }
     }
 
     private void updateGrowth()
     {
-        float growth = recievedLight / lightNecessity;
-
-        if(actualGrowth != GrowthState.PLANT && growth >= 0.25f && growth <= 0.67f)
-        {
-            actualGrowth = GrowthState.PLANT;
-            updateSprite();
-        }else if(actualGrowth != GrowthState.MATURE && growth > 0.67f)
-        {
-            actualGrowth = GrowthState.MATURE;
-            updateSprite();
-        }
-
+        float growth = Mathf.Min(recievedLight / lightNecessity, 1);
+        gameObject.transform.localPosition = new Vector3(0, minLocalY + growth * travelDistanceY, 0);
     }
 
     private void updateSprite()
     {
-        print("Sprites/" + name + "_" + actualGrowth.ToString());
-        renderer.sprite = Resources.Load<Sprite>("Sprites/" + name + "_" + actualGrowth.ToString());
+        string spe = healthy ? "" : "_unhealthy";
+        print("Sprites/" + name + spe);
+        renderer.sprite = Resources.Load<Sprite>("Sprites/" + name + spe);
     }
 
     private void die()
@@ -155,9 +165,9 @@ public class SeedManager : MonoBehaviour {
 
         flooded = false;
         dried = false;
-        ready = false;
-
-        actualGrowth = GrowthState.SEED;
+        healthy = !flooded && !dried;
+        ready = growth >= 1;
+        
         updateSprite();
     }
 }
