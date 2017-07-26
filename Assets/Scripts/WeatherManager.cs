@@ -2,26 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeatherManager : MonoBehaviour {
-
-    public GameObject sun;
-    public GameObject rainingCloud;
+public class WeatherManager : MonoBehaviour
+{
+    public GameObject sunObject;
+    public GameObject rainObject;
 
     private bool raining;
-    private Transform weatherSpawn;
-    private GameObject lastInst;
+    private GameObject currentWeatherObject;
+    private float time;
 
-	// Use this for initialization
-	void Start () {
-        weatherSpawn = transform.Find("WeatherSpawn");
+    // Use this for initialization
+    void Start ()
+    {
+        DigitalRuby.RainMaker.RainScript2D rainScript = rainObject.GetComponent<DigitalRuby.RainMaker.RainScript2D>();
+        rainScript.RainIntensity = 1;
+
+        // prevent the rain from colliding the trigger box
+        rainScript.CollisionMask &= ~(1 << LayerMask.NameToLayer("WheaterZone"));
+
         raining = false;
         set_sun();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+    
+    // Update is called once per frame
+    void Update ()
+    {
+        time += Time.deltaTime;
+    }
 
     public bool isRaining()
     {
@@ -31,19 +38,23 @@ public class WeatherManager : MonoBehaviour {
     public void set_rain()
     {
         raining = true;
-        instantiateWeather(rainingCloud);
+        switchWeather();
     }
 
     public void set_sun()
     {
         raining = false;
-        instantiateWeather(sun);
+        switchWeather();
     }
 
-    private void instantiateWeather(GameObject o)
+    private void switchWeather()
     {
-        Destroy(lastInst);
-        lastInst = Instantiate<GameObject>(o, weatherSpawn);
-        lastInst.transform.SetParent(transform, true);
+        time = 0;
+
+        Destroy(currentWeatherObject);
+
+        GameObject newWeatherObject = raining ? rainObject : sunObject;
+        Transform parent = transform.Find("WeatherSpawn");
+        currentWeatherObject = Instantiate<GameObject>(newWeatherObject, parent);
     }
 }
