@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4601933049941602}
-  - component: {fileID: 114300343716558330}
   - component: {fileID: 61406916433361274}
-  m_Layer: 0
+  - component: {fileID: 114300343716558330}
+  m_Layer: 8
   m_Name: WeatherZone
   m_TagString: WeatherZone
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4333144637328186}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WeatherSpawn
   m_TagString: Untagged
   m_Icon: {fileID: -982381405332843317, guid: 0000000000000000d000000000000000, type: 0}
@@ -63,8 +63,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1094966131651878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.024, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.21, y: 0.32, z: 0}
+  m_LocalScale: {x: 0.3750009, y: 0.6250006, z: 1}
   m_Children:
   - {fileID: 4333144637328186}
   m_Father: {fileID: 0}
@@ -81,7 +81,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -106,5 +106,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5cbae1c099a054a851fbb087103970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sun: {fileID: 1046229381643472, guid: 4b6ba61046a758141a419119ed0fae4d, type: 2}
-  rainingCloud: {fileID: 0}
+  sunObject: {fileID: 1046229381643472, guid: 4b6ba61046a758141a419119ed0fae4d, type: 2}
+  rainObject: {fileID: 191326, guid: b046278bb9b6e104790392b566667ba5, type: 2}
