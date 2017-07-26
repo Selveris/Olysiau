@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     
     public LayerMask layer;
-    // public Transform pointStartRayCast;
 
     private float speed = 7;                    // Set the player max speed
     private float forceJump = 2.58f;            // Set the play jumping force
@@ -62,16 +59,14 @@ public class PlayerController : MonoBehaviour {
 
 	// Player keyboard input to lauch a weather action (f -> invoke sun, r -> invoke rain)
 
-	private void Sun()
-	{
-		if (Input.GetKeyDown("f"))
-			weatherManager.set_sun();
+	private void Sun() {
+	    if (Input.GetKeyDown("f"))
+	        weatherManager.set_sun();
 	}
 
-	private void Rain()
-	{
-		if (Input.GetKeyDown("r"))
-			weatherManager.set_rain();
+	private void Rain() {
+	    if (Input.GetKeyDown("r"))
+	        weatherManager.set_rain();
 	}
 
     // Detect when the player is in contact with the ground (gameObject tagged with "Ground")
@@ -83,17 +78,16 @@ public class PlayerController : MonoBehaviour {
 	}
 
     // Detect when the player is not in contact with ground anymore
+
     private void OnCollisionExit2D(Collision2D collision) {
         if (collision.transform.tag == "Ground")
             isGrounded = false;
     }
 
-    // Detect when the player enter in a weather zone and get its WeatherManager script
-    private void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerStay2D(Collider2D collision) {
         if (collision.tag == "WeatherZone") {
-            // print("weatherzone entered");
             weatherManager = collision.gameObject.GetComponent<WeatherManager>();
             weatherZonePosition = collision.transform.position;
-		}
+        }
     }
 }
