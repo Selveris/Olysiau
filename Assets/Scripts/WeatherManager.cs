@@ -22,7 +22,6 @@ public class WeatherManager : MonoBehaviour
         // prevent the rain from colliding the trigger box
         rainScript.CollisionMask &= ~(1 << LayerMask.NameToLayer("WheaterZone"));
 
-        raining = false;
         set_sun();
         elapsedTime = transitionTime;
     }
