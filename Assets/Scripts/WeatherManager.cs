@@ -43,12 +43,18 @@ public class WeatherManager : MonoBehaviour
 
     public void set_rain()
     {
+        if (raining)
+            return;
+
         raining = true;
         elapsedTime = 0;
     }
 
     public void set_sun()
     {
+        if (!raining)
+            return;
+
         raining = false;
         elapsedTime = 0;
     }
