@@ -16,8 +16,9 @@ public class WeatherManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        rainObject = Instantiate(rainObject, transform.Find("WeatherSpawn"));
+        rainObject = Instantiate(rainObject, gameObject.transform);
         rainScript = rainObject.GetComponent<RainScript2D>();
+        rainScript.FollowCamera = false;
 
         // prevent the rain from colliding the trigger box
         rainScript.CollisionMask &= ~(1 << LayerMask.NameToLayer("WheaterZone"));

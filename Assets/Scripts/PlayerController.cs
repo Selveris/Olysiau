@@ -6,8 +6,6 @@ public class PlayerController : MonoBehaviour {
     
     public LayerMask layer;
     // public Transform pointStartRayCast;
-    public GameObject objectSun;
-    public GameObject objectRain;
 
     private float speed = 7;                    // Set the player max speed
     private float forceJump = 2.58f;            // Set the play jumping force
@@ -32,7 +30,7 @@ public class PlayerController : MonoBehaviour {
 
         PlayerKeyboardInputs();
 
-        camera.transform.position = Vector3.Lerp(camera.transform.position, weatherZonePosition, cameraTransitionSpeed * Time.deltaTime);
+        camera.transform.position = Vector3.Lerp(camera.transform.position, weatherZonePosition + new Vector3(0,0,-10), cameraTransitionSpeed * Time.deltaTime);
 	}
 
     // Input from the player to move itself to the right or left and a jumping function
