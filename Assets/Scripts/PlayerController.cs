@@ -61,16 +61,14 @@ public class PlayerController : MonoBehaviour {
 
 	// Player keyboard input to lauch a weather action (f -> invoke sun, r -> invoke rain)
 
-	private void Sun()
-	{
-		if (Input.GetKeyDown("f"))
-			weatherManager.set_sun();
+	private void Sun() {
+	    if (Input.GetKeyDown("f"))
+	        weatherManager.set_sun();
 	}
 
-	private void Rain()
-	{
-		if (Input.GetKeyDown("r"))
-			weatherManager.set_rain();
+	private void Rain() {
+	    if (Input.GetKeyDown("r"))
+	        weatherManager.set_rain();
 	}
 
     // Detect when the player is in contact with the ground (gameObject tagged with "Ground")
@@ -88,8 +86,7 @@ public class PlayerController : MonoBehaviour {
             isGrounded = false;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
+    private void OnTriggerStay2D(Collider2D collision) {
         if (collision.tag == "WeatherZone") {
             weatherManager = collision.gameObject.GetComponent<WeatherManager>();
             weatherZonePosition = collision.transform.position;
