@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     
     public LayerMask layer;
-    // public Transform pointStartRayCast;
     public GameObject objectSun;
     public GameObject objectRain;
 
@@ -32,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 
         PlayerKeyboardInputs();
 
-        camera.transform.position = Vector3.Lerp(camera.transform.position, weatherZonePosition, cameraTransitionSpeed * Time.deltaTime);
+        camera.transform.position = Vector3.Lerp(camera.transform.position, weatherZonePosition + new Vector3(0,0,-10), cameraTransitionSpeed * Time.deltaTime);
 	}
 
     // Input from the player to move itself to the right or left and a jumping function
@@ -85,17 +82,17 @@ public class PlayerController : MonoBehaviour {
 	}
 
     // Detect when the player is not in contact with ground anymore
+
     private void OnCollisionExit2D(Collision2D collision) {
         if (collision.transform.tag == "Ground")
             isGrounded = false;
     }
 
-    // Detect when the player enter in a weather zone and get its WeatherManager script
-    private void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerStay2D(Collider2D collision)
+    {
         if (collision.tag == "WeatherZone") {
-            // print("weatherzone entered");
             weatherManager = collision.gameObject.GetComponent<WeatherManager>();
             weatherZonePosition = collision.transform.position;
-		}
+        }
     }
 }
