@@ -23,18 +23,18 @@ public class WeatherManager : MonoBehaviour {
 		
 	}
 
-    bool isRaining()
+    public bool isRaining()
     {
         return raining;
     }
 
-    void set_rain()
+    public void set_rain()
     {
         raining = true;
         instantiateWeather(rainingCloud);
     }
 
-    void set_sun()
+    public void set_sun()
     {
         raining = false;
         instantiateWeather(sun);
