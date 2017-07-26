@@ -1,33 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
+using DigitalRuby.RainMaker;
 
 public class WeatherManager : MonoBehaviour
 {
-    public GameObject sunObject;
     public GameObject rainObject;
+
+    public float transitionTime = 5;
 
     private bool raining;
     private GameObject currentWeatherObject;
-    private float time;
+    private float elapsedTime;
+    private RainScript2D rainScript;
 
     // Use this for initialization
     void Start ()
     {
-        DigitalRuby.RainMaker.RainScript2D rainScript = rainObject.GetComponent<DigitalRuby.RainMaker.RainScript2D>();
-        rainScript.RainIntensity = 1;
+        rainObject = Instantiate(rainObject, transform.Find("WeatherSpawn"));
+        rainScript = rainObject.GetComponent<RainScript2D>();
 
         // prevent the rain from colliding the trigger box
         rainScript.CollisionMask &= ~(1 << LayerMask.NameToLayer("WheaterZone"));
 
         raining = false;
         set_sun();
+        elapsedTime = transitionTime;
     }
     
     // Update is called once per frame
     void Update ()
     {
-        time += Time.deltaTime;
+        elapsedTime += Time.deltaTime;
+
+        float transitionRatio = Math.Min(elapsedTime / transitionTime, 1);
+        rainScript.RainIntensity = raining ? transitionRatio : 1 - transitionRatio;
     }
 
     public bool isRaining()
@@ -38,23 +44,12 @@ public class WeatherManager : MonoBehaviour
     public void set_rain()
     {
         raining = true;
-        switchWeather();
+        elapsedTime = 0;
     }
 
     public void set_sun()
     {
         raining = false;
-        switchWeather();
-    }
-
-    private void switchWeather()
-    {
-        time = 0;
-
-        Destroy(currentWeatherObject);
-
-        GameObject newWeatherObject = raining ? rainObject : sunObject;
-        Transform parent = transform.Find("WeatherSpawn");
-        currentWeatherObject = Instantiate<GameObject>(newWeatherObject, parent);
+        elapsedTime = 0;
     }
 }
