@@ -11,14 +11,15 @@ public class SeedManager : MonoBehaviour {
     public float drieResist;
     public float haverestTime;
     public GameObject weatherZone;
-    public Transform spawn;
+    //public Transform spawn;
 
+    /*
     public GameObject seed;
     public GameObject plant;
-    public GameObject maturePlant;
+    public GameObject maturePlant;*/
 
     private float actualWater;
-    private float recievedLight;
+    public float recievedLight;
     private bool flooded;
     private bool dried;
     private bool ready;
@@ -88,7 +89,7 @@ public class SeedManager : MonoBehaviour {
         {
             if (!flooded)
             {
-                renderer.color = new Color(3, 146, 201);
+                renderer.color = new Color(3f/256f, 146f/256f, 201f/256f, 1f);
             }
 
             flooded = true;
@@ -102,7 +103,8 @@ public class SeedManager : MonoBehaviour {
         {
             if (!dried)
             {
-                renderer.color = new Color(201, 146, 3);
+                print("set color"); 
+                renderer.color = new Color(201f/256f, 146f/256f, 3f/256f, 1f);
             }
 
             dried = true;
@@ -137,7 +139,8 @@ public class SeedManager : MonoBehaviour {
 
     private void updateSprite()
     {
-        renderer.sprite = (Sprite) Resources.Load("Sprites/" + name + actualGrowth.ToString());
+        print("Sprites/" + name + "_" + actualGrowth.ToString());
+        renderer.sprite = Resources.Load<Sprite>("Sprites/" + name + "_" + actualGrowth.ToString());
     }
 
     private void die()
@@ -147,7 +150,7 @@ public class SeedManager : MonoBehaviour {
 
     private void restart()
     {
-        actualWater = 0;
+        actualWater = maxWater/3;
         recievedLight = 0;
 
         flooded = false;
