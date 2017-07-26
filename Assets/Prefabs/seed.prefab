@@ -9,63 +9,91 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1621524128754356}
+  m_RootGameObject: {fileID: 1006922522457910}
   m_IsPrefabParent: 1
---- !u!1 &1621524128754356
+--- !u!1 &1006922522457910
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4335010576687274}
-  - component: {fileID: 114574032219885542}
-  - component: {fileID: 212254814307683244}
+  - component: {fileID: 4238625363736812}
   m_Layer: 0
-  m_Name: seed
+  m_Name: Seed
   m_TagString: Untagged
-  m_Icon: {fileID: -2349822300998112484, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4335010576687274
+--- !u!1 &1566021914020292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4916639291317166}
+  - component: {fileID: 212299683176333528}
+  - component: {fileID: 114883653634081744}
+  m_Layer: 0
+  m_Name: Plant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4238625363736812
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1621524128754356}
+  m_GameObject: {fileID: 1006922522457910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: -3.54, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4916639291317166}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114574032219885542
+--- !u!4 &4916639291317166
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1566021914020292}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4238625363736812}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114883653634081744
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1621524128754356}
+  m_GameObject: {fileID: 1566021914020292}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f287ed51a8cd2644a4b904a84c0ddf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   name: PlantTest
-  lightNecessity: 100
-  maxWater: 50
+  lightNecessity: 30
+  maxWater: 200
   floodResist: 15
   drieResist: 15
   haverestTime: 20
   weatherZone: {fileID: 0}
-  recievedLight: 0
---- !u!212 &212254814307683244
+--- !u!212 &212299683176333528
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1621524128754356}
+  m_GameObject: {fileID: 1566021914020292}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
