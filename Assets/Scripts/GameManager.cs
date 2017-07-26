@@ -83,19 +83,19 @@ public class GameManager : MonoBehaviour {
         UIScore.text = "Score: " + _score.ToString();
     }
 
-    void OnePlantDied (GameObject plant)
+    public void OnePlantDied (GameObject plant)
     {
         GameOver();
     }
 
-    void OnePlantWasCollected (GameObject plant)
+    public void OnePlantWasCollected (GameObject plant)
     {
         _score++;
     }
 
 
 
-    public void GameOver() {
+    private void GameOver() {
 
         // load GameOver Scene
 		SceneManager.LoadScene(levelAfterGameOver);
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	// public function for level complete
-	public void LevelCompete() {
+	private void LevelCompete() {
 
 		// use a coroutine to allow the player to get fanfare before moving to next level
 		StartCoroutine(LoadNextLevel());

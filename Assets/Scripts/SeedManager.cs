@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class SeedManager : MonoBehaviour {
 
+    public string name;
     public float lightNecessity;
     public float maxWater;
     public float floodResist;
     public float drieResist;
     public float haverestTime;
     public GameObject weatherZone;
+    public Transform spawn;
 
     public GameObject seed;
     public GameObject plant;
@@ -19,19 +21,23 @@ public class SeedManager : MonoBehaviour {
     private float recievedLight;
     private bool flooded;
     private bool dried;
+    private bool ready;
     private float readySince;
-    private WeatherManager manager;
+    private enum GrowthState { SEED, PLANT, MATURE};
+    private GrowthState actualGrowth;
+    private SpriteRenderer renderer;
+
+    private WeatherManager weatherManager;
 
     // Use this for initialization
     void Start()
     {
-        actualWater = 0;
-        recievedLight = 0;
+        renderer = GetComponent<SpriteRenderer>();
+        weatherManager = weatherZone.GetComponent<WeatherManager>();
+        if (weatherManager == null)
+            Debug.LogError("Script 'WeatherManager' not found in WeatherZone");
 
-        flooded = false;
-        dried = false;
-
-        manager = weatherZone.GetComponent<WeatherManager>();
+        restart();
     }
 
     // Update is called once per frame
@@ -41,38 +47,28 @@ public class SeedManager : MonoBehaviour {
 
         handleWeather(t);
 
-        if(actualWater > maxWater)
-        {
-            flooded = true;
-            if(actualWater - maxWater > floodResist)
-            {
-                die();
-            }
-        }else if(actualWater <= 0)
-        {
-            dried = true;
-            if(-actualWater > drieResist)
-            {
-                die();
-            }
-        }
-        else
-        {
-            flooded = false;
-            dried = false;
-        }
+        handleExtrema();
 
         if(recievedLight >= lightNecessity)
         {
-            readyToHaverest();
+            ready = true;
+            if(recievedLight - lightNecessity > haverestTime)
+            {
+                restart();
+            }
         }
 
         updateGrowth();
     }
 
+    public bool isReady()
+    {
+        return ready;
+    }
+
     private void handleWeather(float time)
     {
-        if (manager.isRaining())
+        if (weatherManager.isRaining())
         {
             actualWater += time;
         }
@@ -85,18 +81,80 @@ public class SeedManager : MonoBehaviour {
             }
         }
     }
+    private void handleExtrema()
+    {
+        //flooded
+        if (actualWater > maxWater)
+        {
+            if (!flooded)
+            {
+                renderer.color = new Color(3, 146, 201);
+            }
+
+            flooded = true;
+            if (actualWater - maxWater > floodResist)
+            {
+                die();
+            }
+        }
+        //dried
+        else if (actualWater <= 0)
+        {
+            if (!dried)
+            {
+                renderer.color = new Color(201, 146, 3);
+            }
+
+            dried = true;
+            if (-actualWater > drieResist)
+            {
+                die();
+            }
+        }
+        //in order
+        else
+        {
+            flooded = false;
+            dried = false;
+        }
+    }
+
     private void updateGrowth()
     {
         float growth = recievedLight / lightNecessity;
+
+        if(actualGrowth != GrowthState.PLANT && growth >= 0.25f && growth <= 0.67f)
+        {
+            actualGrowth = GrowthState.PLANT;
+            updateSprite();
+        }else if(actualGrowth != GrowthState.MATURE && growth > 0.67f)
+        {
+            actualGrowth = GrowthState.MATURE;
+            updateSprite();
+        }
+
     }
 
-    private void readyToHaverest()
+    private void updateSprite()
     {
-
+        renderer.sprite = (Sprite) Resources.Load("Sprites/" + name + actualGrowth.ToString());
     }
 
     private void die()
     {
+        GameManager.gm.OnePlantDied(gameObject);
+    }
 
+    private void restart()
+    {
+        actualWater = 0;
+        recievedLight = 0;
+
+        flooded = false;
+        dried = false;
+        ready = false;
+
+        actualGrowth = GrowthState.SEED;
+        updateSprite();
     }
 }
