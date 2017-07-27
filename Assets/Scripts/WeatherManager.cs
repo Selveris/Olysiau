@@ -41,21 +41,28 @@ public class WeatherManager : MonoBehaviour
         return raining;
     }
 
-    public void set_rain()
+    private void set_rain()
     {
         if (raining)
             return;
-
-        raining = true;
+        
         elapsedTime = 0;
     }
 
-    public void set_sun()
+    private void set_sun()
     {
         if (!raining)
             return;
-
-        raining = false;
+        
         elapsedTime = 0;
+    }
+
+    public void change_weather()
+    {
+        if (raining)
+            set_sun();
+        else 
+            set_rain();
+        raining = !raining;
     }
 }
