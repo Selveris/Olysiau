@@ -224,6 +224,26 @@ namespace DigitalRuby.RainMaker
             audioSourceRainHeavy = new LoopingAudioSource(this, RainSoundHeavy);
             audioSourceWind = new LoopingAudioSource(this, WindSound);
 
+            audioSourceRainLight.AudioSource.spatialBlend = 1;
+            audioSourceRainMedium.AudioSource.spatialBlend = 1;
+            audioSourceRainHeavy.AudioSource.spatialBlend = 1;
+            audioSourceWind.AudioSource.spatialBlend = 1;
+
+            audioSourceRainLight.AudioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSourceRainMedium.AudioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSourceRainHeavy.AudioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSourceWind.AudioSource.rolloffMode = AudioRolloffMode.Linear;
+
+            audioSourceRainLight.AudioSource.minDistance = 10;
+            audioSourceRainMedium.AudioSource.minDistance = 10;
+            audioSourceRainHeavy.AudioSource.minDistance = 10;
+            audioSourceWind.AudioSource.minDistance = 10;
+
+            audioSourceRainLight.AudioSource.maxDistance = 24;
+            audioSourceRainMedium.AudioSource.maxDistance = 24;
+            audioSourceRainHeavy.AudioSource.maxDistance = 24;
+            audioSourceWind.AudioSource.maxDistance = 24;
+
             if (RainFallParticleSystem != null)
             {
                 ParticleSystem.EmissionModule e = RainFallParticleSystem.emission;
