@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 0b40be7970e43724f9735a13206963ed
-timeCreated: 1501168681
+guid: 66a30bbbc373a474787a70ba805a015f
+timeCreated: 1501181397
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -30,24 +30,24 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
-    aniso: 16
-    mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 3
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 4
+  spritePixelsToUnits: 550
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
@@ -57,7 +57,15 @@ TextureImporter:
   platformSettings:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    textureFormat: 4
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -66,20 +74,8 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline:
-    - - {x: 0, y: 2}
-      - {x: -1.563663, y: 1.2469796}
-      - {x: -1.9498558, y: -0.4450419}
-      - {x: -0.8677672, y: -1.8019378}
-      - {x: 0.8677675, y: -1.8019377}
-      - {x: 1.9498558, y: -0.445042}
-      - {x: 1.5636632, y: 1.2469794}
-    physicsShape:
-    - - {x: 0, y: 2}
-      - {x: -1.9021131, y: 0.61803395}
-      - {x: -1.1755704, y: -1.6180341}
-      - {x: 1.1755707, y: -1.6180339}
-      - {x: 1.902113, y: 0.61803424}
+    outline: []
+    physicsShape: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

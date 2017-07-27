@@ -7,6 +7,7 @@ public class SequenceManager : MonoBehaviour {
     public GameObject sequenceOutput;
 
     private int nbreOfSymbol;
+    private Symbol[] symbols;
     private int[] sequence;
     private int index;
     private Dictionary<int, Symbol> dic;
@@ -41,7 +42,7 @@ public class SequenceManager : MonoBehaviour {
         if(symbolID == sequence[index])
         {
             //activate symbol and change sprite
-            Symbol s = dic[sequence[index]];
+            Symbol s = symbols[index];
             s.activate();
             updateSymbolSprite(index, s.getSprite());
 
@@ -87,10 +88,22 @@ public class SequenceManager : MonoBehaviour {
         return s;
     }
 
+    private Symbol[] symbolsFromSequence(int[] seq)
+    {
+        Symbol[] s = new Symbol[nbreOfSymbol];
+        for(int i=0; i<nbreOfSymbol; i++)
+        {
+            s[i] = dic[seq[i]];
+        }
+
+        return s;
+    }
+
     private void reset()
     {
         index = 0;
         sequence = generateRandomSequence();
+        symbols = symbolsFromSequence(sequence);
 
         for(int i = 0; i<nbreOfSymbol; i++)
         {
@@ -121,6 +134,11 @@ public class SequenceManager : MonoBehaviour {
         public void activate()
         {
             isActive = true;
+        }
+
+        public Symbol newInstance()
+        {
+            return new Symbol(active, inactive);
         }
 
         public Sprite getSprite()

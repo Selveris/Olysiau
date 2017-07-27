@@ -149,7 +149,6 @@ public class SeedManager : MonoBehaviour {
     private void updateSprite()
     {
         string spe = healthy ? "" : "_unhealthy";
-        print("Sprites/" + name + spe);
         renderer.sprite = Resources.Load<Sprite>("Sprites/" + name + spe);
     }
 
