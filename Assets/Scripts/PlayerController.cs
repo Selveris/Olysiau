@@ -3,24 +3,29 @@
 public class PlayerController : MonoBehaviour {
     
     public LayerMask layer;
+	public Sprite walkingSprite;
+	public Sprite dancingSprite;
 
-    private float speed = 7;                    // Set the player max speed
-    private float forceJump = 2.58f;            // Set the play jumping force
-    private Rigidbody2D playerRigidBody;
-    private Vector2 startUpVelocity;            // Get the player velocity on the start to prevent weird Y axis behavior
-    private bool jumping;                       // Set the player jump at false so he can jump when grounded
-    private bool isGrounded;                    // Set the player grounded status at false so he can jump when grounded
-    private WeatherManager weatherManager;      // Getting the WeatherManager from the weatherZone gameObject
-    private Vector3 weatherZonePosition;        // Getting the WeatherZone position when there's a collision with the player
-    private Camera camera;                      // Getting the camera position to do a translation to the WeatherZone position
-    private float cameraTransitionSpeed = 7;    // Setting the translation speed between the WeatherZone
-    private bool danceMode;                     // Setting the player mode (normal mode and danse mode)
+    private float speed = 7;                        // Set the player max speed
+    private float forceJump = 2.58f;                // Set the play jumping force
+    private Rigidbody2D playerRigidBody;            // Get the player RigidBody to change the player velocity
+    private Vector2 startUpVelocity;                // Get the player velocity on the start to prevent weird Y axis behavior
+    private bool jumping;                           // Set the player jump at false so he can jump when grounded
+    private bool isGrounded;                        // Set the player grounded status at false so he can jump when grounded
+    private WeatherManager weatherManager;          // Getting the WeatherManager from the weatherZone gameObject
+    private Vector3 weatherZonePosition;            // Getting the WeatherZone position when there's a collision with the player
+    private Camera camera;                          // Getting the camera position to do a translation to the WeatherZone position
+    private float cameraTransitionSpeed = 7;        // Setting the translation speed between the WeatherZone
+    private bool danceMode;                         // Setting the player mode (normal mode and danse mode)
+    private SpriteRenderer playerSpriteRenderer;    // Get the player SpriteRenderer to modify the sprite ingame
 
 	// Use this for initialization
 	void Start () {
         playerRigidBody = GetComponent<Rigidbody2D>();
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
         danceMode = false;
+        // transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
 	}
 	
 	// Update is called once per frame
@@ -40,22 +45,26 @@ public class PlayerController : MonoBehaviour {
      * DanseMode()      : the player switch to the dance mode to... dance and a normal mode in which he can do the two above
      */
 
-
 	private void PlayerKeyboardInputs () {
         if (!danceMode) {
-            MovingPlayerX();
+            MovePlayerX();
             Jump();
         } else {
-            Sun();
-            // Rain();
+            WeatherControl();
         }
 
-        DanseMode();
+        DanceMode();
     }
 
-    private void MovingPlayerX() {
+    private void MovePlayerX() {
         float direction = Input.GetAxis("Horizontal");
         playerRigidBody.velocity = new Vector2(direction * speed, startUpVelocity.y);
+        playerSpriteRenderer.sprite = walkingSprite;
+        if (direction > 0) {
+            FlipSprite(0);
+        } else if (direction < 0) {
+            FlipSprite(180);
+        }
         // Beginning of the function Dash
         /*if (Input.GetKeyDown("x")) {
             playerRigidBody.velocity = new Vector2(direction * speed * 10, startUpVelocity.y);
@@ -71,8 +80,9 @@ public class PlayerController : MonoBehaviour {
 		else jumping &= !isGrounded;
     }
 
-	private void DanseMode() {
+	private void DanceMode() {
 		if (Input.GetKeyDown(KeyCode.LeftControl)) {
+            playerSpriteRenderer.sprite = dancingSprite;
 			if (!danceMode)
 				danceMode = true;
 			else
@@ -80,9 +90,14 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	// Flip the sprite of the player to a defined angle (0 for normal direction and 180 to turn to the other side)
+	private void FlipSprite(float angle) {
+		transform.eulerAngles = new Vector3(0, angle, 0);
+	}
+
 	// Player keyboard input to lauch a weather action (f -> invoke sun, r -> invoke rain)
 
-	private void Sun() {
+	private void WeatherControl() {
 	    if (Input.GetKeyDown("f"))
             weatherManager.change_weather();
 	}
