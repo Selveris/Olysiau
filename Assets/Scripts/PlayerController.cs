@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     
@@ -15,16 +15,17 @@ public class PlayerController : MonoBehaviour {
     private Camera camera;                          // Getting the camera position to do a translation to the WeatherZone position
     private float cameraTransitionSpeed = 7;        // Setting the translation speed between the WeatherZone
     private bool danceMode;                         // Setting the player mode (normal mode and danse mode)
-    private SpriteRenderer playerSpriteRenderer;    // Get the player SpriteRenderer to modify the sprite ingame
-    private Animator playerAnimator;
+    private Animator playerAnimator;                // 
+
+    private bool qPressed;
 
 	// Use this for initialization
 	void Start () {
         playerRigidBody = GetComponent<Rigidbody2D>();
-        playerSpriteRenderer = GetComponent<SpriteRenderer>();
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        playerAnimator = GetComponentInChildren<Animator>();
         danceMode = false;
-        playerAnimator = GetComponent<Animator>();
+        qPressed = false;
 	}
 	
 	// Update is called once per frame
@@ -96,7 +97,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	// Player keyboard input to lauch a weather action (f -> invoke sun, r -> invoke rain)
-
 	private void WeatherControl() {
 	    if (Input.GetKeyDown("f"))
             weatherManager.change_weather();
