@@ -17,6 +17,7 @@ public class SequenceManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         sg = sequenceOutput.GetComponent<SymbolGetter>();
+        dic = new Dictionary<int, Symbol>();
 
         nbreOfSymbol = 5;
 
@@ -27,6 +28,7 @@ public class SequenceManager : MonoBehaviour {
         }
 
         reset();
+        disableOutput();
 	}
 	
 	// Update is called once per frame
@@ -46,7 +48,7 @@ public class SequenceManager : MonoBehaviour {
             index += 1;
             if(index == nbreOfSymbol)
             {
-                gameObject.GetComponent<PlayerController>().ChangeWeather();
+                gameObject.GetComponent<PlayerController>().CompleteSequence();
                 reset();
             }
             return true;
@@ -57,12 +59,12 @@ public class SequenceManager : MonoBehaviour {
 
     public void activateOutput()
     {
-        sequenceOutput.GetComponent<SpriteRenderer>().enabled = true;
+        sequenceOutput.SetActive(true);
     }
 
     public void disableOutput()
     {
-        sequenceOutput.GetComponent<SpriteRenderer>().enabled = false;
+        sequenceOutput.SetActive(false);
     }
 
     private Symbol createSymbol(string key)
@@ -92,13 +94,13 @@ public class SequenceManager : MonoBehaviour {
 
         for(int i = 0; i<nbreOfSymbol; i++)
         {
-            updateSymbolSprite(i, dic[i].getSprite());
+            updateSymbolSprite(i, dic[sequence[i]].getSprite());
         }
     }
 
     private void updateSymbolSprite(int index, Sprite sprite)
     {
-        sg.getSymbol(index + 1).getComponent<SpriteRenderer>().Sprite = sprite;
+        sg.getSymbol(index + 1).GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
 
