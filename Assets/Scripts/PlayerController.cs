@@ -4,21 +4,27 @@ public class PlayerController : MonoBehaviour {
     
     public LayerMask layer;
 
-    private float speed = 7;                    // Set the player max speed
-    private float forceJump = 2.58f;            // Set the play jumping force
-    private Rigidbody2D playerRigidBody;
-    private Vector2 startUpVelocity;            // Get the player velocity on the start to prevent weird Y axis behavior
-    private bool jumping = false;               // Set the player jump at false so he can jump when grounded
-    private bool isGrounded;                    // Set the player grounded status at false so he can jump when grounded
-    private WeatherManager weatherManager;      // Getting the WeatherManager from the weatherZone gameObject
-    private Vector3 weatherZonePosition;        // Getting the WeatherZone position when there's a collision with the player
-    private Camera camera;                      // Getting the camera position to do a translation to the WeatherZone position
-    private float cameraTransitionSpeed = 7;    // Setting the translation speed between the WeatherZone
+    private float speed = 7;                        // Set the player max speed
+    private float forceJump = 2.58f;                // Set the play jumping force
+    private Rigidbody2D playerRigidBody;            // Get the player RigidBody to change the player velocity
+    private Vector2 startUpVelocity;                // Get the player velocity on the start to prevent weird Y axis behavior
+    private bool jumping;                           // Set the player jump at false so he can jump when grounded
+    private bool isGrounded;                        // Set the player grounded status at false so he can jump when grounded
+    private WeatherManager weatherManager;          // Getting the WeatherManager from the weatherZone gameObject
+    private Vector3 weatherZonePosition;            // Getting the WeatherZone position when there's a collision with the player
+    private Camera camera;                          // Getting the camera position to do a translation to the WeatherZone position
+    private float cameraTransitionSpeed = 7;        // Setting the translation speed between the WeatherZone
+    private bool danceMode;                         // Setting the player mode (normal mode and danse mode)
+    private SpriteRenderer playerSpriteRenderer;    // Get the player SpriteRenderer to modify the sprite ingame
+    private Animator playerAnimator;
 
 	// Use this for initialization
 	void Start () {
         playerRigidBody = GetComponent<Rigidbody2D>();
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        danceMode = false;
+        playerAnimator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -27,21 +33,38 @@ public class PlayerController : MonoBehaviour {
 
         PlayerKeyboardInputs();
 
-        camera.transform.position = Vector3.Lerp(camera.transform.position, weatherZonePosition + new Vector3(0,0,-10), cameraTransitionSpeed * Time.deltaTime);
+        camera.transform.position = Vector3.Lerp(camera.transform.position, 
+                                                 weatherZonePosition + new Vector3(0,0,-10), 
+                                                 cameraTransitionSpeed * Time.deltaTime);
 	}
 
-    // Input from the player to move itself to the right or left and a jumping function
+	/* Input from the player :
+     * MovingPlayerX()  : move the player to the right or left
+     * Jump()           : the function name itself is explanatory enough
+     * DanseMode()      : the player switch to the dance mode to... dance and a normal mode in which he can do the two above
+     */
 
-    private void PlayerKeyboardInputs () {
-        MovingPlayerX();
-        Jump();
-        Sun();
-        Rain();
+	private void PlayerKeyboardInputs () {
+        if (!danceMode) {
+            MovePlayerX();
+            Jump();
+        } else {
+            WeatherControl();
+        }
+
+        DanceMode();
     }
 
-    private void MovingPlayerX() {
+    private void MovePlayerX() {
         float direction = Input.GetAxis("Horizontal");
+        bool isMoving = Mathf.Abs(direction) > 0.001f;
+        playerAnimator.SetBool("isMoving", isMoving);
         playerRigidBody.velocity = new Vector2(direction * speed, startUpVelocity.y);
+        if (direction > 0) {
+            FlipSprite(0);
+        } else if (direction < 0) {
+            FlipSprite(180);
+        }
         // Beginning of the function Dash
         /*if (Input.GetKeyDown("x")) {
             playerRigidBody.velocity = new Vector2(direction * speed * 10, startUpVelocity.y);
@@ -57,21 +80,31 @@ public class PlayerController : MonoBehaviour {
 		else jumping &= !isGrounded;
     }
 
-	// Player keyboard input to lauch a weather action (f -> invoke sun, r -> invoke rain)
-
-	private void Sun() {
-	    if (Input.GetKeyDown("f"))
-	        weatherManager.set_sun();
+	private void DanceMode() {
+		if (Input.GetKeyDown(KeyCode.LeftControl)) {
+			if (!danceMode)
+				danceMode = true;
+			else
+				danceMode = false;
+            playerAnimator.SetBool("isDancing", danceMode);
+		}
 	}
 
-	private void Rain() {
-	    if (Input.GetKeyDown("r"))
-	        weatherManager.set_rain();
+	// Flip the sprite of the player to a defined angle (0 for normal direction and 180 to turn to the other side)
+	private void FlipSprite(float angle) {
+		transform.eulerAngles = new Vector3(0, angle, 0);
+	}
+
+	// Player keyboard input to lauch a weather action (f -> invoke sun, r -> invoke rain)
+
+	private void WeatherControl() {
+	    if (Input.GetKeyDown("f"))
+            weatherManager.change_weather();
 	}
 
     // Detect when the player is in contact with the ground (gameObject tagged with "Ground")
 	private void OnCollisionEnter2D(Collision2D collision) {
-		if (collision.transform.tag == "Ground") {
+        if (collision.transform.tag.Equals("Ground")) {
 			isGrounded = true;
 			jumping = false;
 		}
@@ -80,14 +113,20 @@ public class PlayerController : MonoBehaviour {
     // Detect when the player is not in contact with ground anymore
 
     private void OnCollisionExit2D(Collision2D collision) {
-        if (collision.transform.tag == "Ground")
-            isGrounded = false;
+        isGrounded &= !collision.transform.tag.Equals("Ground");
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
-        if (collision.tag == "WeatherZone") {
+        if (collision.tag.Equals("WeatherZone")) {
             weatherManager = collision.gameObject.GetComponent<WeatherManager>();
             weatherZonePosition = collision.transform.position;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.tag.Equals("Plant")) {
+            GameManager.gm.OnePlantWasCollected(collision.gameObject);
+            collision.GetComponent<SeedManager>().haverest();
         }
     }
 }
