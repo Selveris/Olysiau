@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour {
     public GameObject UIGamePaused;
     public Text UIScore;
 
+
+    public PlayerController playerController;
+
     // private variables
     GameObject _player;
 	Scene _scene;
@@ -52,12 +55,11 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-        print("update");
+        // print("update");
 
         if (moveCamera){
-            print("camera in movement");
-			cameraDeath.transform.position = Vector3.Lerp(cameraDeath.transform.position,
-                                                          plantDead.transform.position + new Vector3(0, 0, -10),
+			cameraDeath.transform.position = Vector3.Lerp( cameraDeath.transform.position,
+                                                           plantDead.transform.position + new Vector3(0, 0, -10),
 												           cameraTransitionSpeed * Time.deltaTime);
         }
 	}
@@ -97,12 +99,13 @@ public class GameManager : MonoBehaviour {
 
     void RefreshGUI()
     {
-        UIScore.text = "Score: " + _score.ToString();
+        // UIScore.text = "Score: " + _score.ToString();
     }
 
     public void OnePlantDied (GameObject plant)
     {
         plantDead = plant;
+        playerController.SetGameOver(true);
         StartCoroutine(GameOver());
     }
 

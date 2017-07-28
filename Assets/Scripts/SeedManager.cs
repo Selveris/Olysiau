@@ -153,7 +153,7 @@ public class SeedManager : MonoBehaviour {
 
     private void die()
     {
-        print(GameManager.gm);
+        // print(GameManager.gm);
         GameManager.gm.OnePlantDied(gameObject);
     }
 
