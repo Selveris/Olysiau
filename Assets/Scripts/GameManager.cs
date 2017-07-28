@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour {
     GameObject _player;
 	Scene _scene;
     int _score = 0;
+    private GameObject cameraDeath;
+    private GameObject plantDead;
+    private bool moveCamera;
+    private float cameraTransitionSpeed = 7;
 
 	// set things up here
 	void Awake () {
@@ -30,6 +34,10 @@ public class GameManager : MonoBehaviour {
 		// setup all the variables, the UI, and provide errors if things not setup properly.
 		SetupDefaults();
 	}
+
+    void Start() {
+        cameraDeath = GameObject.Find("Main Camera");
+    }
 
 	// game loop
 	void Update() {
@@ -43,6 +51,12 @@ public class GameManager : MonoBehaviour {
 				UIGamePaused.SetActive(false); // remove the pause UI
 			}
 		}
+
+        if (moveCamera){
+			cameraDeath.transform.position = Vector3.Lerp(cameraDeath.transform.position,
+                                                          plantDead.transform.position + new Vector3(0, 0, -10),
+												           cameraTransitionSpeed * Time.deltaTime);
+        }
 	}
 
 	// setup all the variables, the UI, and provide errors if things not setup properly.
@@ -85,7 +99,8 @@ public class GameManager : MonoBehaviour {
 
     public void OnePlantDied (GameObject plant)
     {
-        GameOver();
+        plantDead = plant;
+        StartCoroutine(GameOver());
     }
 
     public void OnePlantWasCollected (GameObject plant)
@@ -95,11 +110,12 @@ public class GameManager : MonoBehaviour {
 
 
 
-    private void GameOver() {
-
+    IEnumerator GameOver() {
+        moveCamera = true;
+        yield return new WaitForSeconds(3.5f);
+        moveCamera = false;
         // load GameOver Scene
 		SceneManager.LoadScene(levelAfterGameOver);
-
 	}
 
 	// public function for level complete
