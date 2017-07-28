@@ -94,9 +94,9 @@ public class PlayerController : MonoBehaviour {
         playerAnimator.SetBool("isMoving", isMoving);
         playerRigidBody.velocity = new Vector2(direction * speed, startUpVelocity.y);
         if (direction > 0) {
-            FlipSprite(0);
+            playerRenderer.flipX = false;
         } else if (direction < 0) {
-            FlipSprite(180);
+            playerRenderer.flipX = true;
         }
         // Beginning of the function Dash
         /*if (Input.GetKeyDown("x")) {
