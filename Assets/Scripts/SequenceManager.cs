@@ -45,6 +45,8 @@ public class SequenceManager : MonoBehaviour {
             {
                 gameObject.GetComponent<PlayerController>().CompleteSequence();
                 reset();
+                disableOutput();
+                gameObject.DanceMode();
             }
             return true;
         }
