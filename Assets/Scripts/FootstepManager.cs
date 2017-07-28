@@ -5,10 +5,12 @@ using UnityEngine;
 public class FootstepManager : MonoBehaviour {
 
     private AudioClip[] footsteps;
+    private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
         footsteps = Resources.LoadAll<AudioClip>("Sounds/FXs/Footsteps/");
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -18,6 +20,6 @@ public class FootstepManager : MonoBehaviour {
 
     public void PlayFootstep () {
         AudioClip footstep = footsteps[Random.Range(0, footsteps.Length - 1)];
-        GetComponent<AudioSource>().PlayOneShot(footstep);
+        audioSource.PlayOneShot(footstep, 0.5f);
     }
 }

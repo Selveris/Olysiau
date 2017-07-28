@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - WeatherZone
+  - Plant
   layers:
   - Default
   - TransparentFX

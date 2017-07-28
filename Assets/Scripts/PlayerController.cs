@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;﻿
+﻿﻿﻿using System.Collections;﻿
 ﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -7,11 +7,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject Lightning;
 
     private float speed = 7;                        // Set the player max speed
-    private float forceJump = 2.58f;                // Set the play jumping force
     private Rigidbody2D playerRigidBody;            // Get the player RigidBody to change the player velocity
     private Vector2 startUpVelocity;                // Get the player velocity on the start to prevent weird Y axis behavior
-    private bool jumping;                           // Set the player jump at false so he can jump when grounded
-    private bool isGrounded;                        // Set the player grounded status at false so he can jump when grounded
     private WeatherManager weatherManager;          // Getting the WeatherManager from the weatherZone gameObject
     private Vector3 weatherZonePosition;            // Getting the WeatherZone position when there's a collision with the player
     private Camera cameraTranslate;                 // Getting the camera position to do a translation to the WeatherZone position
@@ -34,6 +31,7 @@ public class PlayerController : MonoBehaviour {
     private Sprite stunedPose2;
     private Sprite stunedPose3;
     private bool stun;
+    private bool gameOver;
 
 	// Use this for initialization
 	void Start () {
@@ -55,6 +53,7 @@ public class PlayerController : MonoBehaviour {
         stunedPose3 = Resources.Load<Sprite>(resourcesStun + "stun_static_928x1370");
         danceMode = false;
         stun = false;
+        gameOver = false;
 	}
 	
 	// Update is called once per frame
@@ -63,7 +62,8 @@ public class PlayerController : MonoBehaviour {
 
         PlayerKeyboardInputs();
 
-        cameraTranslate.transform.position = Vector3.Lerp(cameraTranslate.transform.position, 
+        if (!gameOver)
+            cameraTranslate.transform.position = Vector3.Lerp(cameraTranslate.transform.position, 
                                                  weatherZonePosition + new Vector3(0,0,-10), 
                                                  cameraTransitionSpeed * Time.deltaTime);
 	}
@@ -81,16 +81,16 @@ public class PlayerController : MonoBehaviour {
     private void PlayerKeyboardInputs () {
         if (!danceMode) {
             MovePlayerX();
-            Jump();
             playerAnimator.enabled = true;
         } else {
             WeatherControl();
             playerAnimator.enabled = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl)) {
-            DanceMode();
-        }
+        if (!stun)
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                DanceMode();
+            }
     }
 
     private void MovePlayerX() {
@@ -103,22 +103,9 @@ public class PlayerController : MonoBehaviour {
         } else if (direction < 0) {
             playerRenderer.flipX = true;
         }
-        // Beginning of the function Dash
-        /*if (Input.GetKeyDown("x")) {
-            playerRigidBody.velocity = new Vector2(direction * speed * 10, startUpVelocity.y);
-        }*/
     }
 
-    private void Jump() {
-        bool jump = Input.GetAxis("Jump") > 0;
-		if (jump && !jumping) {
-			jumping = true;
-			playerRigidBody.AddForce(Vector2.up * forceJump, ForceMode2D.Impulse);
-		}
-		else jumping &= !isGrounded;
-    }
-
-	private void DanceMode() {
+	public void DanceMode() {
         danceMode = !danceMode;
         if (danceMode) {
             sequenceManager.reset();
@@ -175,27 +162,14 @@ public class PlayerController : MonoBehaviour {
         if (id != 0) {
             bool rightSymb = sequenceManager.addSymbol(id);
             if (!rightSymb) {
-                // shoutManager.PlayVoices();
+				shoutManager.PlayThunder();
+				shoutManager.PlayCries();
                 sequenceManager.reset();
                 StartCoroutine(StunTime());
             } else {
                 shoutManager.PlayVoices();
             }
         }
-    }
-
-    // Detect when the player is in contact with the ground (gameObject tagged with "Ground")
-	private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.transform.tag.Equals("Ground")) {
-			isGrounded = true;
-			jumping = false;
-		}
-	}
-
-    // Detect when the player is not in contact with ground anymore
-
-    private void OnCollisionExit2D(Collision2D collision) {
-        isGrounded &= !collision.transform.tag.Equals("Ground");
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
@@ -213,11 +187,15 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public void SetGameOver(bool isGameOver) {
+        gameOver = isGameOver;
+    }
+
     IEnumerator StunTime () {
         stun = true;
 
         GameObject L = Instantiate(Lightning, gameObject.transform, true);
-        L.transform.position = playerRenderer.gameObject.transform.position + new Vector3(0f, 2.5f, 0.1f);
+        L.transform.position = playerRenderer.gameObject.transform.position + new Vector3(0f, 6f, 0.1f);
         yield return new WaitForSeconds(0.15f);
 
         playerRenderer.sprite = stunedPose1;
