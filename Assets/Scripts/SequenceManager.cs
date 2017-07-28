@@ -99,7 +99,7 @@ public class SequenceManager : MonoBehaviour {
         return s;
     }
 
-    private void reset()
+    public void reset()
     {
         index = 0;
         sequence = generateRandomSequence();
