@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SeedManager : MonoBehaviour {
 
@@ -26,9 +24,17 @@ public class SeedManager : MonoBehaviour {
     private SpriteRenderer renderer;
     private WeatherManager weatherManager;
 
+    private int resetCount = 0;
+
     // Use this for initialization
     void Start()
     {
+        lightNecessity = Random.Range(30, 50);
+        maxWater = System.Math.Max(Random.Range(30, 50) - 3 * resetCount, 6);
+
+        floodResist = System.Math.Max(21 - resetCount, 4);
+        drieResist = System.Math.Max(21 - resetCount, 4);
+
         renderer = GetComponent<SpriteRenderer>();
         weatherManager = weatherZone.GetComponent<WeatherManager>();
         if (weatherManager == null)
@@ -166,7 +172,9 @@ public class SeedManager : MonoBehaviour {
         dried = false;
         healthy = !flooded && !dried;
         ready = growth >= 1;
-        
+
+        ++resetCount;
+
         updateSprite();
     }
 }
