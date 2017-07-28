@@ -229,6 +229,33 @@ GameObject:
   m_PrefabParentObject: {fileID: 1094966131651878, guid: 4b802b0b91a2c95478ac0e10f398ca1a,
     type: 2}
   m_PrefabInternal: {fileID: 1108711498}
+--- !u!1 &205602291 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1106705371721382, guid: b691b2c0c5c6b57499c40eaaf9bd78f3,
+    type: 2}
+  m_PrefabInternal: {fileID: 861084003}
+--- !u!114 &205602297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 205602291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80dbfd42d2013427d8196fc09429340b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &205602298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 205602291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f449fabdbcf547c2944624208dc19a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &206526528
 Prefab:
   m_ObjectHideFlags: 0
@@ -362,6 +389,29 @@ Prefab:
       propertyPath: weatherZone
       value: 
       objectReference: {fileID: 187892656}
+    - target: {fileID: 1268160353217194, guid: ed8756c2f5d56d547be61e9e81e2d30c, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885298689336944, guid: ed8756c2f5d56d547be61e9e81e2d30c, type: 2}
+      propertyPath: m_TagString
+      value: Plant
+      objectReference: {fileID: 0}
+    - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
+        type: 2}
+      propertyPath: maxWater
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
+        type: 2}
+      propertyPath: drieResist
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
+        type: 2}
+      propertyPath: floodResist
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed8756c2f5d56d547be61e9e81e2d30c, type: 2}
   m_IsPrefabParent: 0
