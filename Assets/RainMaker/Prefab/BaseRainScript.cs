@@ -239,10 +239,10 @@ namespace DigitalRuby.RainMaker
             audioSourceRainHeavy.AudioSource.minDistance = 10;
             audioSourceWind.AudioSource.minDistance = 10;
 
-            audioSourceRainLight.AudioSource.maxDistance = 24;
-            audioSourceRainMedium.AudioSource.maxDistance = 24;
-            audioSourceRainHeavy.AudioSource.maxDistance = 24;
-            audioSourceWind.AudioSource.maxDistance = 24;
+            audioSourceRainLight.AudioSource.maxDistance = 30;
+            audioSourceRainMedium.AudioSource.maxDistance = 30;
+            audioSourceRainHeavy.AudioSource.maxDistance = 30;
+            audioSourceWind.AudioSource.maxDistance = 30;
 
             if (RainFallParticleSystem != null)
             {

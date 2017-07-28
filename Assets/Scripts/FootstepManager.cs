@@ -20,6 +20,6 @@ public class FootstepManager : MonoBehaviour {
 
     public void PlayFootstep () {
         AudioClip footstep = footsteps[Random.Range(0, footsteps.Length - 1)];
-        audioSource.PlayOneShot(footstep, 0.5f);
+        audioSource.PlayOneShot(footstep, 0.2f);
     }
 }
