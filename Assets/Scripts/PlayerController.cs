@@ -1,4 +1,4 @@
-﻿using System.Collections;﻿
+﻿﻿using System.Collections;﻿
 ﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour {
     private bool danceMode;                         // Setting the player mode (normal mode and danse mode)   // Get the player SpriteRenderer to modify the sprite ingame
     private Animator playerAnimator;                // 
     private SequenceManager sequenceManager;        // 
+    private ShoutManager shoutManager;
+    private EatingNoiseManager eatingNoiseManager;
     private SpriteRenderer playerRenderer;
     private string resourcesMoveset = "Sprites/DanceMoveset/";
     private string resourcesStun = "Sprites/StunSet/";
@@ -38,6 +40,8 @@ public class PlayerController : MonoBehaviour {
         playerRigidBody = GetComponent<Rigidbody2D>();
         cameraTranslate = GameObject.Find("Main Camera").GetComponent<Camera>();
         sequenceManager = GetComponent<SequenceManager>();
+        shoutManager = GetComponentInChildren<ShoutManager>();
+        eatingNoiseManager = GetComponentInChildren<EatingNoiseManager>();
         playerAnimator = GetComponentInChildren<Animator>();
         playerRenderer = GetComponentInChildren<SpriteRenderer>();
         dancePoseQ = Resources.Load<Sprite>(resourcesMoveset + "dance_4_928x1370");
@@ -169,10 +173,13 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (id != 0) {
-            if (!sequenceManager.addSymbol(id))
-            {
+            bool rightSymb = sequenceManager.addSymbol(id);
+            if (!rightSymb) {
+                // shoutManager.PlayVoices();
                 sequenceManager.reset();
                 StartCoroutine(StunTime());
+            } else {
+                shoutManager.PlayVoices();
             }
         }
     }
@@ -199,9 +206,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag.Equals("Plant")) {
+        if (collision.tag.Equals("Plant") && collision.GetComponent<SeedManager>().isReady()) {
             GameManager.gm.OnePlantWasCollected(collision.gameObject);
             collision.GetComponent<SeedManager>().haverest();
+            eatingNoiseManager.PlayEatings();
         }
     }
 

@@ -6,11 +6,11 @@ public class SequenceManager : MonoBehaviour {
 
     public GameObject sequenceOutput;
 
-    private int nbreOfSymbol;
+    private int symbolCount = 5;
     private Symbol[] symbols;
     private int[] sequence;
     private int index;
-    private Dictionary<int, Symbol> dic;
+    private List<Symbol> symbolList = new List<Symbol>();
 
     private SymbolGetter sg;
 
@@ -18,15 +18,9 @@ public class SequenceManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         sg = sequenceOutput.GetComponent<SymbolGetter>();
-        dic = new Dictionary<int, Symbol>();
 
-        nbreOfSymbol = 5;
-
-        string[] s = { "q", "w", "e", "a", "s", "d" };
-        for (int i = 0; i<s.Length; i++)
-        {
-            dic.Add(i, createSymbol(s[i]));
-        }
+        foreach (char key in "qweasd")
+            symbolList.Add(createSymbol(key));
 
         reset();
         disableOutput();
@@ -47,7 +41,7 @@ public class SequenceManager : MonoBehaviour {
             updateSymbolSprite(index, s.getSprite());
 
             index += 1;
-            if(index == nbreOfSymbol)
+            if(index == symbolCount)
             {
                 gameObject.GetComponent<PlayerController>().CompleteSequence();
                 reset();
@@ -68,7 +62,7 @@ public class SequenceManager : MonoBehaviour {
         sequenceOutput.SetActive(false);
     }
 
-    private Symbol createSymbol(string key)
+    private Symbol createSymbol(char key)
     {
         Sprite active = Resources.Load<Sprite>("Sprites/Symbols/" + key + "_active");
         Sprite inactive = Resources.Load<Sprite>("Sprites/Symbols/" + key + "_inactive");
@@ -78,22 +72,20 @@ public class SequenceManager : MonoBehaviour {
 
     private int[] generateRandomSequence()
     {
-        int[] s = new int[nbreOfSymbol];
+        int[] randomSequence = new int[symbolCount];
 
-        for(int i = 0; i<nbreOfSymbol; i++)
-        {
-            s[i] = Random.Range(0, nbreOfSymbol-1);
-        }
+        for(int i = 0; i < symbolCount; i++)
+            randomSequence[i] = Random.Range(0, symbolList.Count);
 
-        return s;
+        return randomSequence;
     }
 
     private Symbol[] symbolsFromSequence(int[] seq)
     {
-        Symbol[] s = new Symbol[nbreOfSymbol];
-        for(int i=0; i<nbreOfSymbol; i++)
+        Symbol[] s = new Symbol[symbolCount];
+        for(int i=0; i<symbolCount; i++)
         {
-            s[i] = dic[seq[i]].newInstance();
+            s[i] = symbolList[seq[i]].newInstance();
         }
 
         return s;
@@ -105,9 +97,9 @@ public class SequenceManager : MonoBehaviour {
         sequence = generateRandomSequence();
         symbols = symbolsFromSequence(sequence);
 
-        for(int i = 0; i<nbreOfSymbol; i++)
+        for(int i = 0; i<symbolCount; i++)
         {
-            updateSymbolSprite(i, dic[sequence[i]].getSprite());
+            updateSymbolSprite(i, symbolList[sequence[i]].getSprite());
         }
     }
 
