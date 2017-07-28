@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
             playerAnimator.enabled = false;
         }
 
-        if (!stun)
+        if (!stun && !GameManager.gm.GetComponent<GameManager>().GameOnPause())
             if (Input.GetKeyDown(KeyCode.Space)) {
                 DanceMode();
             }

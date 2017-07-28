@@ -18,23 +18,27 @@ public class GameManager : MonoBehaviour {
     public Text UIHighScore;
 
 
-    public PlayerController playerController;
+    private PlayerController playerController;
 
     // private variables
     GameObject _player;
 	Scene _scene;
-    int _score = 0;
+    public int _score = 0;
     int _highscore = 0;
     private GameObject cameraDeath;
     private GameObject plantDead;
     private bool moveCamera;
     private float cameraTransitionSpeed = 7;
+    private bool onPause;
 
 	// set things up here
 	void Awake () {
-		// setup reference to game manager
-		if (gm == null)
+        // setup reference to game manager
+        UIGamePaused.SetActive(false);
+        if (gm == null)
 			gm = this.GetComponent<GameManager>();
+
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
 		// setup all the variables, the UI, and provide errors if things not setup properly.
 		SetupDefaults();
@@ -52,20 +56,28 @@ public class GameManager : MonoBehaviour {
 			if (Time.timeScale > 0f) {
 				UIGamePaused.SetActive(true); // this brings up the pause UI
 				Time.timeScale = 0f; // this pauses the game action
+                onPause = true;
 			} else {
 				Time.timeScale = 1f; // this unpauses the game action (ie. back to normal)
 				UIGamePaused.SetActive(false); // remove the pause UI
+                onPause = false;
 			}
 		}
 
-        // print("update");
+        RefreshGUI();
+        
 
         if (moveCamera){
-			cameraDeath.transform.position = Vector3.Lerp( cameraDeath.transform.position,
-                                                           plantDead.transform.position + new Vector3(0, 0, -10),
+			cameraDeath.transform.position = Vector3.Lerp( cameraDeath.transform.position, new Vector3(
+                plantDead.transform.position.x, cameraDeath.transform.position.y , cameraDeath.transform.position.z),
 												           cameraTransitionSpeed * Time.deltaTime);
         }
 	}
+
+    public bool GameOnPause()
+    {
+        return onPause;
+    }
 
 	// setup all the variables, the UI, and provide errors if things not setup properly.
 	void SetupDefaults() {
