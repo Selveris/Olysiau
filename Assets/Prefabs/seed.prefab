@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4268754006274056}
   m_Layer: 0
-  m_Name: Seed
+  m_Name: seed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
