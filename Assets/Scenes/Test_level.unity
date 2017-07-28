@@ -273,6 +273,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 82913666040774184, guid: b691b2c0c5c6b57499c40eaaf9bd78f3,
+        type: 2}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b691b2c0c5c6b57499c40eaaf9bd78f3, type: 2}
   m_IsPrefabParent: 0
@@ -331,17 +336,17 @@ Prefab:
     - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
         type: 2}
       propertyPath: maxWater
-      value: 200
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
         type: 2}
       propertyPath: drieResist
-      value: 50
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
         type: 2}
       propertyPath: floodResist
-      value: 50
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed8756c2f5d56d547be61e9e81e2d30c, type: 2}
