@@ -33,10 +33,10 @@ public class GameManager : MonoBehaviour {
 
 		// setup all the variables, the UI, and provide errors if things not setup properly.
 		SetupDefaults();
-	}
+        cameraDeath = GameObject.Find("Main Camera");
+    }
 
     void Start() {
-        cameraDeath = GameObject.Find("Main Camera");
     }
 
 	// game loop
@@ -52,7 +52,10 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
+        print("update");
+
         if (moveCamera){
+            print("camera in movement");
 			cameraDeath.transform.position = Vector3.Lerp(cameraDeath.transform.position,
                                                           plantDead.transform.position + new Vector3(0, 0, -10),
 												           cameraTransitionSpeed * Time.deltaTime);

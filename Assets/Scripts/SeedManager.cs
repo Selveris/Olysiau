@@ -117,7 +117,6 @@ public class SeedManager : MonoBehaviour {
         {
             if (!dried)
             {
-                print("set color"); 
                 renderer.color = new Color(201f/256f, 146f/256f, 3f/256f, 1f);
             }
 
@@ -154,6 +153,7 @@ public class SeedManager : MonoBehaviour {
 
     private void die()
     {
+        print(GameManager.gm);
         GameManager.gm.OnePlantDied(gameObject);
     }
 

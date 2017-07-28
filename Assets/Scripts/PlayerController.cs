@@ -4,6 +4,7 @@
 public class PlayerController : MonoBehaviour {
     
     public LayerMask layer;
+    public GameObject Lightning;
 
     private float speed = 7;                        // Set the player max speed
     private float forceJump = 2.58f;                // Set the play jumping force
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour {
     private SequenceManager sequenceManager;        // 
     private SpriteRenderer playerRenderer;
     private string resourcesMoveset = "Sprites/DanceMoveset/";
-    private string resourcesStun = "Sprites/StunMoveset/";
+    private string resourcesStun = "Sprites/StunSet/";
     private Sprite dancePoseQ;
     private Sprite dancePoseW;
     private Sprite dancePoseE;
@@ -206,6 +207,11 @@ public class PlayerController : MonoBehaviour {
 
     IEnumerator StunTime () {
         stun = true;
+
+        GameObject L = Instantiate(Lightning, gameObject.transform, true);
+        L.transform.position = playerRenderer.gameObject.transform.position + new Vector3(0f, 1f, 0.1f);
+        yield return new WaitForSeconds(0.15f);
+
         playerRenderer.sprite = stunedPose1;
         for (int i = 0; i < 3; i++) {
             yield return new WaitForSeconds(0.06f);
@@ -213,8 +219,9 @@ public class PlayerController : MonoBehaviour {
             yield return new WaitForSeconds(0.06f);
             playerRenderer.sprite = stunedPose1;
         }
-        yield return new WaitForSeconds(0.03f);
+        yield return new WaitForSeconds(0.25f);
         playerRenderer.sprite = stunedPose3;
         stun = false;
+        Destroy(L);
     }
 }
