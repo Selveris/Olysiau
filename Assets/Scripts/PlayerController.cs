@@ -162,6 +162,7 @@ public class PlayerController : MonoBehaviour {
         if (id != 0) {
             bool rightSymb = sequenceManager.addSymbol(id);
             if (!rightSymb) {
+                print(shoutManager);
 				shoutManager.PlayThunder();
 				shoutManager.PlayCries();
                 sequenceManager.reset();
