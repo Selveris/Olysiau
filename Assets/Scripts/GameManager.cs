@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
+        _highscore = GetHighscore();
     }
 
 	// game loop
@@ -117,12 +118,39 @@ public class GameManager : MonoBehaviour {
         _score++;
     }
 
+    public static int GetHighscore()
+    {
+        if (PlayerPrefs.HasKey("Highscore"))
+        {
+            return PlayerPrefs.GetInt("Highscore");
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
+    public static void SetHighscore(int highscore)
+    {
+        PlayerPrefs.SetInt("Highscore", highscore);
+    }
+
+    public static void SavePlayerState(int score, int highScore, int lives)
+    {
+        PlayerPrefs.SetInt("Highscore", highScore);
+    }
+
+    // reset stored player state and variables back to defaults
+    public static void ResetPlayerState()
+    {
+            PlayerPrefs.SetInt("Highscore", 0);
+    }
 
     IEnumerator GameOver() {
         if(_score > _highscore)
         {
             _highscore = _score;
+            SetHighscore(_highscore);
         }
         moveCamera = true;
         yield return new WaitForSeconds(3.5f);
