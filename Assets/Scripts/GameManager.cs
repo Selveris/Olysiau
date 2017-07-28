@@ -15,11 +15,13 @@ public class GameManager : MonoBehaviour {
     // UI element to control
     public GameObject UIGamePaused;
     public Text UIScore;
+    public Text UIHighScore;
 
     // private variables
     GameObject _player;
 	Scene _scene;
     int _score = 0;
+    int _highscore = 0;
     private GameObject cameraDeath;
     private GameObject plantDead;
     private bool moveCamera;
@@ -98,6 +100,7 @@ public class GameManager : MonoBehaviour {
     void RefreshGUI()
     {
         UIScore.text = "Score: " + _score.ToString();
+        UIHighScore.text = "Meilleur score: " + _highscore.ToString();
     }
 
     public void OnePlantDied (GameObject plant)
@@ -114,6 +117,10 @@ public class GameManager : MonoBehaviour {
 
 
     IEnumerator GameOver() {
+        if(_score > _highscore)
+        {
+            _highscore = _score;
+        }
         moveCamera = true;
         yield return new WaitForSeconds(3.5f);
         moveCamera = false;
