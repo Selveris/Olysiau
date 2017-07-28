@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour {
         stun = true;
 
         GameObject L = Instantiate(Lightning, gameObject.transform, true);
-        L.transform.position = playerRenderer.gameObject.transform.position + new Vector3(0f, 2.5f, 0.1f);
+        L.transform.position = playerRenderer.gameObject.transform.position + new Vector3(0f, 6f, 0.1f);
         yield return new WaitForSeconds(0.15f);
 
         playerRenderer.sprite = stunedPose1;
