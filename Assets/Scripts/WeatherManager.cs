@@ -69,8 +69,8 @@ public class WeatherManager : MonoBehaviour
 
             if (fadeToSun)
             {
-                alphaSun -= dt;
-                alphaRain += dt;
+                alphaSun += dt;
+                alphaRain -= dt;
 
                 if (alphaSun >= 1)
                 {
@@ -81,8 +81,8 @@ public class WeatherManager : MonoBehaviour
             }
             if (fadeToRain)
             {
-                alphaRain -= dt;
-                alphaSun += dt;
+                alphaRain += dt;
+                alphaSun -= dt;
 
                 if (alphaRain >= 1)
                 {
