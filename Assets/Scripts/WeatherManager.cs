@@ -45,7 +45,7 @@ public class WeatherManager : MonoBehaviour
 
         alphaRain = 0;
         alphaSun = 1;
-        fadeToSun = false;
+        fadeToSun = true;
         fadeToRain = false;
 
         brRain = backRendererRain.GetComponent<SpriteRenderer>();
