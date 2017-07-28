@@ -26,6 +26,11 @@ public class SeedManager : MonoBehaviour {
     private SpriteRenderer renderer;
     private WeatherManager weatherManager;
 
+    private Sprite s_healthy;
+    private Sprite s_flooded;
+    private Sprite s_dried;
+
+
     // Use this for initialization
     void Start()
     {
@@ -33,6 +38,9 @@ public class SeedManager : MonoBehaviour {
         weatherManager = weatherZone.GetComponent<WeatherManager>();
         if (weatherManager == null)
             Debug.LogError("Script 'WeatherManager' not found in WeatherZone");
+        s_dried = loadSprite("dried");
+        s_flooded = loadSprite("flooded");
+        s_healthy = loadSprite("healthy");
 
         restart();
 
@@ -103,7 +111,7 @@ public class SeedManager : MonoBehaviour {
         {
             if (!flooded)
             {
-                renderer.color = new Color(3f/256f, 146f/256f, 201f/256f, 1f);
+                renderer.sprite = s_flooded;
             }
 
             flooded = true;
@@ -117,7 +125,7 @@ public class SeedManager : MonoBehaviour {
         {
             if (!dried)
             {
-                renderer.color = new Color(201f/256f, 146f/256f, 3f/256f, 1f);
+                renderer.sprite = s_dried;
             }
 
             dried = true;
@@ -131,7 +139,7 @@ public class SeedManager : MonoBehaviour {
         {
             if(flooded || dried)
             {
-                renderer.color = new Color(1f, 1f, 1f, 1f);
+                renderer.sprite = s_healthy;
             }
             flooded = false;
             dried = false;
@@ -142,13 +150,12 @@ public class SeedManager : MonoBehaviour {
     private void updateGrowth()
     {
         float growth = Mathf.Min(recievedLight / lightNecessity, 1);
-        gameObject.transform.localPosition = new Vector3(0, minLocalY + growth * travelDistanceY, 0);
+        gameObject.transform.localPosition = new Vector3(0, minLocalY + growth * travelDistanceY, -0.9f);   
     }
 
-    private void updateSprite()
+    private Sprite loadSprite(string state)
     {
-        string spe = healthy ? "" : "_unhealthy";
-        renderer.sprite = Resources.Load<Sprite>("Sprites/" + name + spe);
+        return Resources.Load<Sprite>("Sprites/Fruits/" + name + "_" + state);
     }
 
     private void die()
@@ -166,7 +173,7 @@ public class SeedManager : MonoBehaviour {
         dried = false;
         healthy = !flooded && !dried;
         ready = growth >= 1;
-        
-        updateSprite();
+
+        renderer.sprite = s_healthy;
     }
 }
