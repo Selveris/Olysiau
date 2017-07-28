@@ -39,7 +39,7 @@ public class SequenceManager : MonoBehaviour {
 
     public bool addSymbol(int symbolID)
     {
-        if(symbolID == sequence[index])
+        if(symbolID - 1 == sequence[index])
         {
             //activate symbol and change sprite
             Symbol s = symbols[index];
@@ -93,7 +93,7 @@ public class SequenceManager : MonoBehaviour {
         Symbol[] s = new Symbol[nbreOfSymbol];
         for(int i=0; i<nbreOfSymbol; i++)
         {
-            s[i] = dic[seq[i]];
+            s[i] = dic[seq[i]].newInstance();
         }
 
         return s;

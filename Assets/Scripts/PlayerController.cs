@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour {
 	private void DanceMode() {
         danceMode = !danceMode;
         if (danceMode) {
-            // sequenceManager.reset();
+            sequenceManager.reset();
             sequenceManager.activateOutput();
         } else {
             sequenceManager.disableOutput();
@@ -168,8 +168,11 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (id != 0) {
-            if(!sequenceManager.addSymbol(id))
+            if (!sequenceManager.addSymbol(id))
+            {
+                sequenceManager.reset();
                 StartCoroutine(StunTime());
+            }
         }
     }
 
