@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
     public LayerMask layer;
     public GameObject Lightning;
 
-    private float speed = 7;                        // Set the player max speed
+    private float speed;                        // Set the player max speed
     private Rigidbody2D playerRigidBody;            // Get the player RigidBody to change the player velocity
     private Vector2 startUpVelocity;                // Get the player velocity on the start to prevent weird Y axis behavior
     private WeatherManager weatherManager;          // Getting the WeatherManager from the weatherZone gameObject
@@ -51,16 +51,21 @@ public class PlayerController : MonoBehaviour {
         stunedPose1 = Resources.Load<Sprite>(resourcesStun + "stun_elec_1_928x1370");
         stunedPose2 = Resources.Load<Sprite>(resourcesStun + "stun_elec_2_928x1370");
         stunedPose3 = Resources.Load<Sprite>(resourcesStun + "stun_static_928x1370");
+
         danceMode = false;
         stun = false;
         gameOver = false;
+
+        speed = 6;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         startUpVelocity = playerRigidBody.velocity;
 
-        PlayerKeyboardInputs();
+        if (!GameManager.gm.GetComponent<GameManager>().GameOnPause()){
+            PlayerKeyboardInputs();
+        }
 
         if (!gameOver)
             cameraTranslate.transform.position = Vector3.Lerp(cameraTranslate.transform.position, 
@@ -87,7 +92,7 @@ public class PlayerController : MonoBehaviour {
             playerAnimator.enabled = false;
         }
 
-        if (!stun && !GameManager.gm.GetComponent<GameManager>().GameOnPause())
+        if (!stun)
             if (Input.GetKeyDown(KeyCode.Space)) {
                 DanceMode();
             }
@@ -178,13 +183,16 @@ public class PlayerController : MonoBehaviour {
             weatherManager = collision.gameObject.GetComponent<WeatherManager>();
             weatherZonePosition = collision.transform.position;
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag.Equals("Plant") && collision.GetComponent<SeedManager>().isReady()) {
+        if (collision.tag.Equals("Plant") && collision.GetComponent<SeedManager>().isReady())
+        {
             GameManager.gm.OnePlantWasCollected(collision.gameObject);
             collision.GetComponent<SeedManager>().haverest();
             eatingNoiseManager.PlayEatings();
+            if(speed < 12)
+            {
+                speed += 0.2f;
+            }
         }
     }
 

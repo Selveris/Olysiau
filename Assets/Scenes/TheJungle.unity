@@ -577,67 +577,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1268160353217194, guid: ed8756c2f5d56d547be61e9e81e2d30c, type: 2}
-      propertyPath: m_Name
-      value: seed_right
-      objectReference: {fileID: 0}
-    - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
-        type: 2}
-      propertyPath: name
-      value: Fruit
-      objectReference: {fileID: 0}
     - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
         type: 2}
       propertyPath: weatherZone
       value: 
       objectReference: {fileID: 742762115}
-    - target: {fileID: 4449367506367002, guid: ed8756c2f5d56d547be61e9e81e2d30c, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
-        type: 2}
-      propertyPath: lightNecessity
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
-        type: 2}
-      propertyPath: maxWater
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
-        type: 2}
-      propertyPath: floodResist
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
-        type: 2}
-      propertyPath: drieResist
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114588476270026684, guid: ed8756c2f5d56d547be61e9e81e2d30c,
-        type: 2}
-      propertyPath: haverestTime
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1885298689336944, guid: ed8756c2f5d56d547be61e9e81e2d30c, type: 2}
-      propertyPath: m_TagString
-      value: Plant
-      objectReference: {fileID: 0}
-    - target: {fileID: 61473272396581458, guid: ed8756c2f5d56d547be61e9e81e2d30c,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 61473272396581458, guid: ed8756c2f5d56d547be61e9e81e2d30c,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 61473272396581458, guid: ed8756c2f5d56d547be61e9e81e2d30c,
-        type: 2}
-      propertyPath: m_AutoTiling
-      value: 0
+    - target: {fileID: 1268160353217194, guid: ed8756c2f5d56d547be61e9e81e2d30c, type: 2}
+      propertyPath: m_Name
+      value: seed_right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed8756c2f5d56d547be61e9e81e2d30c, type: 2}
@@ -810,7 +757,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 792524098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.253117, y: -4.6, z: 0.5}
+  m_LocalPosition: {x: -34.253117, y: -5.5, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 499557712}
