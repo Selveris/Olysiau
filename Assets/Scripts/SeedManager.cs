@@ -32,12 +32,6 @@ public class SeedManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        lightNecessity = Random.Range(30, 50);
-        maxWater = System.Math.Max(Random.Range(30, 50) - 3 * resetCount, 6);
-
-        floodResist = System.Math.Max(21 - resetCount, 4);
-        drieResist = System.Math.Max(21 - resetCount, 4);
-
         renderer = GetComponent<SpriteRenderer>();
         weatherManager = weatherZone.GetComponent<WeatherManager>();
         if (weatherManager == null)
@@ -170,6 +164,12 @@ public class SeedManager : MonoBehaviour {
 
     private void restart()
     {
+        lightNecessity = Random.Range(30, 50);
+        maxWater = System.Math.Max(Random.Range(30, 50) - 3 * resetCount, 6);
+
+        floodResist = System.Math.Max(21 - resetCount, 4);
+        drieResist = System.Math.Max(21 - resetCount, 4);
+
         actualWater = maxWater/3;
         recievedLight = 0;
 
