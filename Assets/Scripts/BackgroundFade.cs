@@ -4,78 +4,76 @@ using UnityEngine;
 
 public class BackgroundFade : MonoBehaviour {
 
-    public GameObject backgroundRain;
-    public GameObject backgroundSun;
+    public GameObject nightVersion;
+    public GameObject dayVersion;
 
-    public enum Weather { sun, rain };
+    private float alphaNight;
+    private float alphaDay;
+    private bool fadeToNight;
+    private bool fadeToDay;
 
-    private float alphaRain;
-    private float alphaSun;
-    private bool fadeToSun;
-    private bool fadeToRain;
-
-    private SpriteRenderer srRain;
-    private SpriteRenderer srSun;
+    private SpriteRenderer srNight;
+    private SpriteRenderer srDay;
 
 	// Use this for initialization
 	void Start () {
-        alphaRain = 0;
-        alphaSun = 1;
-        fadeToSun = false;
-        fadeToRain = false;
+        alphaNight = 0;
+        alphaDay = 1;
+        fadeToNight = false;
+        fadeToDay = false;
 
-        srRain = backgroundRain.GetComponent<SpriteRenderer>();
-        srSun = backgroundSun.GetComponent<SpriteRenderer>();
+        srNight = nightVersion.GetComponent<SpriteRenderer>();
+        srDay = dayVersion.GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if(fadeToSun || fadeToRain)
+        if(fadeToDay || fadeToNight)
         {
             float dt = Time.deltaTime;
 
-            if (fadeToSun)
+            if (fadeToDay)
             {
-                alphaSun -= dt;
-                alphaRain += dt;
+                alphaDay -= dt;
+                alphaNight += dt;
 
-                if (alphaSun >= 1)
+                if (alphaDay >= 1)
                 {
-                    alphaSun = 1;
-                    alphaRain = 0;
-                    fadeToSun = false;
+                    alphaDay = 1;
+                    alphaNight = 0;
+                    fadeToDay = false;
                 }
             }
-            if (fadeToRain)
+            if (fadeToNight)
             {
-                alphaRain -= dt;
-                alphaSun += dt;
+                alphaNight -= dt;
+                alphaDay += dt;
 
-                if (alphaRain >= 1)
+                if (alphaNight >= 1)
                 {
-                    alphaRain = 1;
-                    alphaSun = 0;
-                    fadeToRain = false;
+                    alphaNight = 1;
+                    alphaDay = 0;
+                    fadeToNight = false;
                 }
             }
 
-            changeAlpha(srRain, alphaRain);
-            changeAlpha(srSun, alphaSun);
+            changeAlpha(srNight, alphaNight);
+            changeAlpha(srDay, alphaDay);
         }
         
 	}
 
-    public void fadeBackground(Weather toWeather)
+    public void fadeImage(bool toDay)
     {
-        if(toWeather == Weather.sun)
+        if(isDay)
         {
-            fadeToSun = true;
-            fadeToRain = false;
+            fadeToDay = true;
+            fadeToNight = false;
         }
         else
         {
-            fadeToSun = false;
-            fadeToRain = true;
+            fadeToDay = false;
+            fadeToNight = true;
         }
     }
 

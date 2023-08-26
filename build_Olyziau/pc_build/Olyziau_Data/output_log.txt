@@ -1,0 +1,75 @@
+Initialize engine version: 2017.1.0f3 (472613c02cf7)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 960M (ID=0x139b)
+    Vendor:   NVIDIA
+    VRAM:     4054 MB
+    Driver:   31.0.15.3640
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\UnityEngine.Timeline.dll (this message is harmless)
+Loading D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\UnityEngine.Timeline.dll into Unity Child Domain
+Platform assembly: D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\System.dll (this message is harmless)
+Platform assembly: D:\Users\Gabriel\Documents\Informatique\SGA\build_Olyziau\pc_build\Olyziau_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.079 seconds
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 10.072700 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.593600 ms
+levelAfterVictory not specified, defaulted to current level
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+levelAfterGameOver not specified, defaulted to current level
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 515.
+Total: 0.402300 ms (FindLiveObjects: 0.047400 ms CreateObjectMapping: 0.012300 ms MarkObjects: 0.296600 ms  DeleteObjects: 0.045200 ms)
+
+PlayerImage (ShoutManager)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayerImage (ShoutManager)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayerImage (ShoutManager)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayerImage (ShoutManager)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.960700 ms
+levelAfterVictory not specified, defaulted to current level
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+levelAfterGameOver not specified, defaulted to current level
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+
+Unloading 109 unused Assets to reduce memory usage. Loaded Objects now: 515.
+Total: 2.845300 ms (FindLiveObjects: 0.110100 ms CreateObjectMapping: 0.058400 ms MarkObjects: 0.918100 ms  DeleteObjects: 1.756400 ms)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 3444 -> priority: 1 
+  Thread -> id: 8 -> priority: 1 
+  Thread -> id: 24bc -> priority: 1 
+  Thread -> id: 3894 -> priority: 1 
