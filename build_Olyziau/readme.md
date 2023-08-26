@@ -1,26 +1,26 @@
-﻿		---Nom Du Jeu : Olyziau 
+﻿Olyziau 
 
----Membre du groupe :
+Description: vous êtes un chamane qui, seul sous la pluie fait pousser des légumes médicinaux pour sa Tata.
 
--Levan Jeanneret  : Levan.j.222@gmail.com
+Membre du groupe :
 
-\- Fabien Bourquin : fabien2074@hotmail.com
+  \- Levan Jeanneret  : Levan.j.222@gmail.com
 
-\- Derin Uyar : derin.uyar@yahoo.com
+  \- Fabien Bourquin : fabien2074@hotmail.com
 
-\- Loris Witschard : loris.wit@gmail.com
+  \- Derin Uyar : derin.uyar@yahoo.com
 
-\- Gabriel Luisier: <gabriel.luisier@protonmail.ch>
+  \- Loris Witschard : loris.wit@gmail.com
 
-\- Soulaymane Lamrani : lamrani.soulaymane@gmail.com
+  \- Gabriel Luisier: <gabriel.luisier@protonmail.ch>
 
----Description: vous êtes un chamane qui, seul sous la pluie fait pousser des légumes médicinaux pour sa Tata.
+  \- Soulaymane Lamrani : lamrani.soulaymane@gmail.com
 
----Commandes: 
-	<= ou =>	marcher
-	<espace>	commence la dance 
-	q,w,e,a,s,d	dancer
+Commandes:
+  <- et ->	marcher
+  \<espace\>	commence la dance 
+  q,w,e,a,s,d	dancer
 
----Assets téléchargés : Rain Maker - 2D and 3D Rain Particle System for Unity (par Digital Ruby)  , Son : freesound.org  ( thunder, background jungle, footsteps) all are licenced under public domain and were Reworked).
+Assets téléchargés : Rain Maker - 2D and 3D Rain Particle System for Unity (par Digital Ruby)  , Son : freesound.org  ( thunder, background jungle, footsteps) all are licenced under public domain and were Reworked).
 
 
